@@ -5,6 +5,7 @@
 //         Tasnem Mamdoh 20221041
 // Section: S19
 // TA: Mohamed Talaat
+
 #include <iostream>
 #include <bits/stdc++.h>
 #include "Simulator.h"
@@ -12,5 +13,12 @@ using namespace std;
 
 int main() {
 
+    Machine program;
+
+    string file_name;
+    cin >> file_name;
+
+    program.loadProgram(file_name );
+    program.execute();
     return 0;
 }
