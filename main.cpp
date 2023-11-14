@@ -11,14 +11,14 @@
 #include "Simulator.h"
 using namespace std;
 
+
 int main() {
+    Memory memory;
+    if (memory.loadInstructionsFromFile("test.txt")) {
+        CPU cpu;
+        cpu.executeInstructions(memory);
+        cpu.displayRegisters();
+    }
 
-    Machine program;
-
-    string file_name;
-    cin >> file_name;
-
-    program.loadProgram(file_name );
-    program.execute();
     return 0;
 }
