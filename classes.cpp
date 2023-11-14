@@ -3,7 +3,7 @@
 //#include <iomanip>
 
 //__________________(Load Program)__________________
-void Machine ::loadProgram(const string &filename) {
+void Machine ::loadProgram(const string &filename ) {
 
     int count = 0;
     string line;
@@ -20,13 +20,13 @@ void Machine ::loadProgram(const string &filename) {
         hexacount >> hex >> count;
         string hexaddress = (hexacount.str().size() == 2)? hexacount.str() : '0'+ hexacount.str();
 
-        mainmemory->instructions[count] = make_pair(hexaddress , line.substr(0 , 2));
+        mainmemory->instructios[count]=make_pair(hexaddress , line.substr(0 , 2));
 
         count++;
         hexacount >> hex >> count;
         hexaddress = (hexacount.str().size() == 2)? hexacount.str() : '0'+ hexacount.str();
 
-        mainmemory->instructions[count] = make_pair(hexaddress , line.substr(2 , 2));
+        mainmemory->instructios[count] = make_pair(hexaddress , line.substr(2 , 2));
         count++;
     }
 }
@@ -37,13 +37,16 @@ void Machine :: execute() {
     string operad2;
     int i;
     for (i = 0; i < mainmemory->size; i+=2) {
-        IR = mainmemory->instructions[i].second + mainmemory->instructions[i+1].second;
+        IR = mainmemory->instructios[i].second + mainmemory->instructios[i+1].second;
 
         opcode = IR[0];
         operad1 = IR[1];
         operad2 = IR.substr(2, 2);
 
         instructions(opcode , operad1 , operad2, i);
+        if (!(i+2<mainmemory->size)){
+            ProgramCounter = mainmemory->instructios[i+2].first;
+        }
     }
 }
 
@@ -90,7 +93,7 @@ void Machine::instructions(char op, char o1, string o2,int& i) {
 void Machine :: loadcontant(char o1, string o2) {
 
     int memindex = stoi(o2 , 0 , 16);
-    Register[to_string(o1)] = mainmemory->instructions[memindex].second;
+    Register[to_string(o1)] = mainmemory->instructios[memindex].second;
 }
 //Operation 2---------------
 void Machine :: loadbit(char o1 , string o2) {
@@ -100,7 +103,7 @@ void Machine :: loadbit(char o1 , string o2) {
 //Operation 3---------------
 void Machine ::storeincell(char o1 , string o2) {
     int memindex = stoi(o2 , 0 , 16);
-    mainmemory->instructions[memindex].second = Register[to_string(o1)];
+    mainmemory->instructios[memindex].second = Register[to_string(o1)];
 }
 //Operation 4---------------
 void Machine ::store00(char o1) {
@@ -135,4 +138,4 @@ void Machine :: displayStatus() {
 
 }
 
-memory::memory(int size) : n(size), instructions(size) {}
+memory::memory(int size) : n(size), instructios(size) {}

@@ -15,8 +15,9 @@ private:
     string ProgramCounter = "00";
 
 public:
+    //Machine(memory& mainmemory):mainmemory(),Register(),ProgramCounter(){};
     string IR;
-    void loadProgram(const string& filename);
+    void loadProgram(const string& filename );
     void execute();
     void instructions(char op , char o1 , string o2 , int& i);
     void loadcontant(char R , string address);
@@ -34,8 +35,11 @@ class memory{
 private:
     int n = 256;
 public:
-    vector<pair<string , string>> instructions;
+    vector<pair<string , string>> instructios;
     int size;
     memory(int size = 256);
+    memory(){
+        instructios.resize(256);
+    }
 };
 #endif //OOP_ASSIGNMENT2_TASK3_SIMULATOR_H
