@@ -35,7 +35,6 @@ bool Memory::loadInstructionsFromFile(const std::string& filename) {
         instructions.push_back(make_pair(hexaddress , line.substr(2 , 2)));
         count++;
     }
-
     file.close();
     return true;
 }

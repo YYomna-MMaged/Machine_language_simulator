@@ -12,10 +12,13 @@ using namespace std;
 class Memory;
 class CPU {
 private:
+
     map<string ,string >registers;
     string IR ="00";
     string ProgramCounter;
+
 public:
+
     CPU();
     void executeInstructions(const Memory& memory,int print );
     void Menu_of_instructions(char op , char o1 , string o2 , int& i, const vector<pair<string,string>>& k);
@@ -28,6 +31,7 @@ public:
     void jump(char R,string addrass,int cou);
     void Halt(int& end,const vector<pair<string ,string>>& hl);
     void displaystatue(const vector<pair< string ,string>>&pr );
+
 };
 
 class Memory {

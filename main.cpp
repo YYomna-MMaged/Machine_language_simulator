@@ -28,6 +28,5 @@ int main (){
         CPU cpu;
         cpu.executeInstructions(memory,flag);
     }
-
     return 0;
 }
