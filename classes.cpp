@@ -146,11 +146,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 CPU::CPU() {
-    // Constructor logic if needed
+    ProgramCounter = "00";
     registers; // Assuming 8 registers
 }
 
-void CPU::executeInstructions(const Memory& memory) {
+void CPU::executeInstructions(const Memory& memory,int print) {
     const vector<pair<string, string>>& instructions = memory.getInstructions();
     char opcode;
     char operad1;
@@ -164,9 +164,13 @@ void CPU::executeInstructions(const Memory& memory) {
         operad2 = IR.substr(2, 2);
 
         Minstructions(opcode , operad1 , operad2,i, instructions);
-        // if (!(i+2<mainmemory->size)){
-        //   ProgramCounter = mainmemory->instructios[i+2];
-        //}
+         if (!(i+2<instructions.size())){
+           ProgramCounter = instructions[i+2].first;
+        }
+         if (print ==1){
+             cout <<"content of IR ="<< IR <<'\n'<<"ProgramCounter ="<<ProgramCounter;
+             displayRegisters();
+         }
     }
 //    for (const auto& instruction : instructions) {
 //        // Implement your instruction execution logic here
@@ -304,7 +308,11 @@ void CPU ::add(char o1 , string o2) {
     int y= stoi( registers[ind2]) ;
     string rind = "0";
     rind.push_back(o1);
-    registers[rind]=to_string(char (x)+char (y) - char(256));
+    int num=char (x)+char (y) - char(256);
+    stringstream take ;
+    take << hex << num;
+    string result = (take.str().size() == 2)? take.str() : '0'+ take.str();
+    registers[rind]=result;
 }
 //Operation B---------------
 void CPU::jump(char o1, string o2,int i) {

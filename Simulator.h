@@ -53,9 +53,10 @@ class CPU {
 private:
     map<string ,string >registers;
     string IR ="00";
+    string ProgramCounter;
 public:
     CPU();
-    void executeInstructions(const Memory& memory);
+    void executeInstructions(const Memory& memory,int print );
     void displayRegisters() const;
     void Minstructions(char op , char o1 , string o2 , int& i,const vector<pair<string,string>>& k);
     void loadcontant(char R , string address,const vector<pair <string,string>>& lo);
