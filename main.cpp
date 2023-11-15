@@ -12,12 +12,21 @@
 using namespace std;
 
 
-int main() {
+int main (){
     Memory memory;
-    int k=1;
+    cout << "select 0 or 1 :" << endl
+         << "0 --> Display at the end of program execution" << endl
+         << "1 --> Display after each step" << endl;
+    int flag;
+    cin >> flag;
+    while (flag != 1 && flag != 0){
+        cout << "Selection not available" << endl;
+        cin >> flag;
+    }
+
     if (memory.loadInstructionsFromFile("test.txt")) {
         CPU cpu;
-        cpu.executeInstructions(memory,k);
+        cpu.executeInstructions(memory,flag);
     }
 
     return 0;

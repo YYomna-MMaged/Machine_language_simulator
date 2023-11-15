@@ -68,8 +68,17 @@ void CPU::executeInstructions(const Memory& memory,int print) {
             cout <<"content of IR ="<< IR <<'\n'<<"ProgramCounter ="<<ProgramCounter<<endl;
             cout << "_______________________________________" << endl;
 
-            displayRegistersandMemory(instructions);
+            displaystatue(instructions);
         }
+    }
+
+    if(!print)
+    {
+        cout << "_______________________________________" << endl;
+        cout <<"content of IR ="<< IR <<'\n'<<"ProgramCounter ="<<ProgramCounter<<endl;
+        cout << "_______________________________________" << endl;
+
+        displaystatue(instructions);
     }
 }
 void CPU::Menu_of_instructions(char op, char o1, string o2, int &i, const vector<pair<string,string>>& k)  {
@@ -181,7 +190,7 @@ void CPU::jump(char o1, string o2,int i) {
 
 //Operation C---------------
 void CPU ::Halt(int& i,const vector<pair<string,string>>& hl){
-    cout << "end of the program" << endl;
+//    cout << "end of the program" << endl;
 
     i = hl.size();
 }
@@ -189,13 +198,13 @@ void CPU ::Halt(int& i,const vector<pair<string,string>>& hl){
 //__________________(Display)_________________
 
 
-void CPU::displayRegistersandMemory (const vector<pair< string ,string>>  &pr ) {
-    cout << "_______________Registers_________________" << endl;
+void CPU::displaystatue (const vector<pair< string ,string>>  &pr ) {
+    cout << "_______________Registers_______________" << endl;
     for (auto item : registers) {
         std::cout << "Register " << item.first << ": " <<  item.second << std::endl;
     }
 
-    cout << "______________Memory_____________________" << endl;
+    cout << "______________Memory___________________" << endl;
     for (int i=0;i<pr.size();i++){
         cout<< "memory "<< pr[i].first<<":"<<pr[i].second<<endl;
     }

@@ -18,7 +18,6 @@ private:
 public:
     CPU();
     void executeInstructions(const Memory& memory,int print );
-//    void displayRegisters() const;
     void Menu_of_instructions(char op , char o1 , string o2 , int& i, const vector<pair<string,string>>& k);
     void loadcontant(char R , string address,const vector<pair <string,string>>& lo);
     void loadbit(char R , string pattern);
@@ -28,8 +27,7 @@ public:
     void add(char R,string address);
     void jump(char R,string addrass,int cou);
     void Halt(int& end,const vector<pair<string ,string>>& hl);
-    void displayStatus();
-    void displayRegistersandMemory(const vector<pair< string ,string>>&pr );
+    void displaystatue(const vector<pair< string ,string>>&pr );
 };
 
 class Memory {
