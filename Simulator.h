@@ -68,6 +68,7 @@ public:
     void jump(char R,string addrass,int cou);
     void Halt(int& end,const vector<pair<string ,string>>& hl);
     void displayStatus();
+    void displayRegisters(const vector<pair< string ,string>>&pr );
 };
 
 class Memory {
