@@ -14,10 +14,11 @@ using namespace std;
 
 int main() {
     Memory memory;
+    int k=1;
     if (memory.loadInstructionsFromFile("test.txt")) {
         CPU cpu;
-        cpu.executeInstructions(memory);
-        cpu.displayRegisters();
+        cpu.executeInstructions(memory,k);
+       // cpu.displayRegisters();
     }
 
     return 0;
