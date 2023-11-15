@@ -18,7 +18,6 @@ int main() {
     if (memory.loadInstructionsFromFile("test.txt")) {
         CPU cpu;
         cpu.executeInstructions(memory,k);
-       // cpu.displayRegisters();
     }
 
     return 0;
