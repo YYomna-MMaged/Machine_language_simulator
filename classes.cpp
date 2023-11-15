@@ -164,12 +164,12 @@ void CPU::executeInstructions(const Memory& memory,int print) {
         operad2 = IR.substr(2, 2);
 
         Minstructions(opcode , operad1 , operad2,i, instructions);
-         if (!(i+2<instructions.size())){
+         if ((i+2<instructions.size())){
            ProgramCounter = instructions[i+2].first;
         }
          if (print ==1){
-             cout <<"content of IR ="<< IR <<'\n'<<"ProgramCounter ="<<ProgramCounter;
-             displayRegisters();
+             cout <<"content of IR ="<< IR <<'\n'<<"ProgramCounter ="<<ProgramCounter<<endl;
+             displayRegisters(instructions);
          }
     }
 //    for (const auto& instruction : instructions) {
@@ -179,9 +179,12 @@ void CPU::executeInstructions(const Memory& memory,int print) {
 //    }
 }
 
-void CPU::displayRegisters() const {
+void CPU::displayRegisters(const vector<pair< string ,string>>  &pr ) {
     for (auto item : registers) {
         std::cout << "Register " << item.first << ": " <<  item.second << std::endl;
+    }
+    for (int i=0;i<pr.size();i++){
+        cout<< "memory "<< pr[i].first<<":"<<pr[i].second<<endl;
     }
 }
 
