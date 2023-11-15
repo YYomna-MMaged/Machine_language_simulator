@@ -234,7 +234,7 @@ void CPU::Minstructions(char op, char o1, string o2, int &i,const vector<pair<st
     }
     else if(op == '3')
     {
-        storeincell(o1 , o2,k);
+        storeincell(o1 , o2, const_cast<vector<pair<std::string, std::string>> &>(k));
     }
     else if(op == '4')
     {
@@ -259,36 +259,58 @@ void CPU::Minstructions(char op, char o1, string o2, int &i,const vector<pair<st
 // Operation 1--------------
 void CPU :: loadcontant(char o1, string o2,const vector<pair<string,string>>& lo) {
 
+
     int memindex = stoi(o2 , 0 , 16);
-    registers[to_string(o1)] = lo[memindex].second;
+    string x = "0";
+    x.push_back(o1);
+    registers[x] = lo[memindex].second;
 }
 //Operation 2---------------
 void CPU :: loadbit(char o1 , string o2) {
-
-    registers[to_string(o1)] = o2;
+    string x = "0";
+    x.push_back(o1);
+    registers[x] = o2;
 }
 //Operation 3---------------
-void CPU ::storeincell(char o1 , string o2,const vector<pair<string,string>>& st) {
+void CPU ::storeincell(char o1 , string o2, vector<pair<string,string>>& st) {
     int memindex = stoi(o2 , 0 , 16);
-    st[memindex].second = registers[to_string(o1)];
+    string x = "0";
+    x.push_back(o1);
+    st[memindex].second = x;
+//            registers[to_string(o1)];
 }
 //Operation 4---------------
 void CPU ::store00(char o1) {
-    cout <<  registers[to_string(o1)] << endl;
+    string x = "0";
+    x.push_back(o1);
+    cout <<  registers[x] << endl;
 }
 //operation 5----------------
 void CPU ::movecontant(string o2){
-    registers[to_string(o2[1])] = registers[to_string(o2[0])];
+    string x = "0";
+    x.push_back(o2[1]);
+    string y = "0";
+    x.push_back(o2[0]);
+    registers[x] = registers[y];
 }
 //operation 6----------------
 void CPU ::add(char o1 , string o2) {
-    int x =  stoi (registers [to_string(o2[1])]);
-    int y= stoi( registers[to_string(o2[0])]) ;
-    registers[to_string(o1)]=to_string(char (x)+char (y) - char(256));
+    string ind = "0";
+    ind.push_back(o2[1]);
+    string ind2 = "0";
+    ind2.push_back(o2[0]);
+
+    int x =  stoi (registers [ind]);
+    int y= stoi( registers[ind2]) ;
+    string rind = "0";
+    rind.push_back(o1);
+    registers[rind]=to_string(char (x)+char (y) - char(256));
 }
 //Operation B---------------
 void CPU::jump(char o1, string o2,int i) {
-    if (registers[to_string(o1)] == registers["00"]) {
+    string x = "0";
+    x.push_back(o1);
+    if (registers[x] == registers["00"]) {
         int memindex = stoi(o2, 0, 16);
         i =memindex;
     }
@@ -296,6 +318,6 @@ void CPU::jump(char o1, string o2,int i) {
 }
 //Operation C---------------
 void CPU ::Halt(int& i,const vector<pair<string,string>>& hl){
-    cout << "end of the program";
+    cout << "end of the program" << endl;
     i = hl.size();
 }

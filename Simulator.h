@@ -60,7 +60,7 @@ public:
     void Minstructions(char op , char o1 , string o2 , int& i,const vector<pair<string,string>>& k);
     void loadcontant(char R , string address,const vector<pair <string,string>>& lo);
     void loadbit(char R , string pattern);
-    void storeincell(char R , string address,const vector<pair<string,string>>& st);
+    void storeincell(char R , string address, vector<pair<string,string>>& st);
     void store00(char R);
     void movecontant(string address );
     void add(char R,string address);
