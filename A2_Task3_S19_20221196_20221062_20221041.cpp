@@ -1,5 +1,5 @@
 // File: A2_Task3_S19_20221196-20221062-20221041.cpp
-// Purpose:
+// Purpose: Design simulating the machine language
 // Author: Yomna Maged Ali 20221196
 //         Rawan Amr Nabil 20221062
 //         Tasnem Mamdoh 20221041
