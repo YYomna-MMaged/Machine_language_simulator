@@ -141,7 +141,7 @@
 //memory::memory(int size) : n(size), instructios(size) {}
 // cpu.cpp
 
-#include <iostream>
+/*#include <iostream>
 #include <fstream>
 #include <bits/stdc++.h>
 using namespace std;
@@ -268,7 +268,7 @@ void CPU :: loadbit(char o1 , string o2) {
     registers[to_string(o1)] = o2;
 }
 //Operation 3---------------
-void CPU ::storeincell(char o1 , string o2,const vector<pair<string,string>>& st) {
+void CPU ::storeincell(char o1 , string o2, const vector<pair<string,string>>& st) {
     int memindex = stoi(o2 , 0 , 16);
     st[memindex].second = registers[to_string(o1)];
 }
@@ -299,3 +299,153 @@ void CPU ::Halt(int& i,const vector<pair<string,string>>& hl){
     cout << "end of the program";
     i = hl.size();
 }
+*/
+#include <iostream>
+#include <fstream>
+#include <bits/stdc++.h>
+using namespace std;
+CPU::CPU() {
+    // Constructor logic if needed
+    registers; // Assuming 8 registers
+}
+
+
+void CPU::executeInstructions(const Memory& memory) {
+    const vector<string>& instructions = memory.getInstructions();
+    char opcode;
+    char operad1;
+    string operad2;
+    int i;
+    for (i = 0; i < instructions.size(); i += 2) {
+        IR = instructions[i] + instructions[i + 1];
+
+        opcode = IR[0];
+        operad1 = IR[1];
+        operad2 = IR.substr(2, 2);
+
+        Minstructions(opcode, operad1, operad2, i, instructions);
+    }
+}
+
+void CPU::displayRegisters() const {
+    for (auto item : registers) {
+        std::cout << "Register " << item.first << ": " << item.second << std::endl;
+    }
+}
+
+Memory::Memory() {
+    // Constructor logic if needed
+}
+
+bool Memory::loadInstructionsFromFile(const std::string& filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Error opening file: " << filename << std::endl;
+        return false;
+    }
+    int count=0;
+    string line ;
+    while (file >> line ) {
+        stringstream hexacount,hex2;
+        hexacount << hex << count;
+       string hexaddress = (hexacount.str().size() == 2)? hexacount.str() : '0'+ hexacount.str();
+
+
+        instructions.push_back( line.substr(2 , 2));
+
+       count++;
+        hex2 << hex << count;
+        hexaddress = (hex2.str().size() == 2)? hex2.str() : '0'+ hex2.str();
+
+        instructions.push_back( line.substr(2 , 2));
+        count++;
+        //  instructions.emplace_back(line.substr(0,2),line.substr(2,2));
+
+
+    }
+
+    file.close();
+    return true;
+}
+
+const vector<string>& Memory::getInstructions() const {
+    return instructions;
+}
+
+void CPU::Minstructions(char op, char o1, string o2, int& i, const vector<string>& k) {
+
+    if (op == '1') {
+        loadcontant(o1, o2, k);
+    }
+    else if (op == '2') {
+        loadbit(o1, o2);
+    }
+    else if (op == '3' && o2 == "00") {
+        store00(o1);
+    }
+    else if (op == '3') {
+        storeincell(o1, o2, k);
+    }
+    else if (op == '4') {
+        movecontant(o2);
+    }
+    else if (op == '5') {
+        add(o1, o2);
+    }
+
+    else if(op == 'B')
+    {
+         jump(o1,o2,i);
+   }
+    else if (op == 'C') {
+        Halt(i, k);
+    }
+}
+//__________________(INSTRUCTIONS)_________________
+// Operation 1--------------
+void CPU::loadcontant(char o1, string o2, const vector<string>& lo) {
+    int memindex = stoi(o2, 0, 16);
+    registers[to_string(o1)] = lo[memindex];
+}
+//Operation 2--------------------------
+void CPU::loadbit(char o1, string o2) {
+
+    registers[to_string(o1)] = o2;
+
+}
+//Operation 3--------------------------
+void CPU::storeincell(char o1, string o2, vector<string> st) {
+    int memindex = stoi(o2, 0, 16);
+    st[memindex] = registers[to_string(o1)];
+}
+//Operation 4--------------------------
+void CPU::store00(char o1) {
+
+    cout << registers[to_string(o1)] << endl;
+
+}
+//Operation 5--------------------------
+void CPU::movecontant(string o2) {
+    registers[to_string(o2[1])] = registers[to_string(o2[0])];
+}
+//Operation 6--------------------------
+void CPU::add(char o1, string o2) {
+    int x = stoi(registers[to_string(o2[1])]);
+    int y = stoi(registers[to_string(o2[0])]);
+    registers[to_string(o1)] = to_string(char(x) + char(y) - char(256));
+}
+//Operation B---------------
+void CPU::jump(char o1, string o2,int &i) {
+    if (registers[to_string(o1)] == registers["00"]) {
+        int memindex = stoi(o2, 0, 16);
+        i =memindex;
+    }
+}
+//Operation C---------------
+
+void CPU::Halt(int& i, const vector<string>& hl) {
+    cout << "end of the program";
+    i = hl.size();
+}
+
+
