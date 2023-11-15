@@ -319,5 +319,6 @@ void CPU::jump(char o1, string o2,int i) {
 //Operation C---------------
 void CPU ::Halt(int& i,const vector<pair<string,string>>& hl){
     cout << "end of the program" << endl;
+
     i = hl.size();
 }

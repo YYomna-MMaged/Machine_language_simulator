@@ -80,3 +80,4 @@ public:
 };
 
 #endif //OOP_ASSIGNMENT2_TASK3_SIMULATOR_H
+
